@@ -2,14 +2,17 @@ project "imgui"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "On"
+	--staticruntime "On"
 	systemversion "latest"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files {"src/**.hpp", "src/**.cpp", "test/**.hpp", "test/**.cpp"}
-
+    includedirs
+    {
+        ".",
+        "%{wks.location}/Gargantua/vendor/glfw/include",
+    }
 
 	files
 	{
@@ -22,13 +25,22 @@ project "imgui"
 		"imstb_rectpack.h",
 		"imstb_textedit.h",
 		"imstb_truetype.h",
-		"imgui_demo.cpp"
+		"imgui_demo.cpp",
+        "imgui_tables.cpp",
+        "backends/imgui_impl_glfw.h",
+        "backends/imgui_impl_glfw.cpp",
+        "backends/imgui_impl_opengl3.h",
+        "backends/imgui_impl_opengl3.cpp",
+        "misc/cpp/imgui_stdlib.h",
+        "misc/cpp/imgui_stdlib.cpp",
+        --"backends/imgui_impl_opengl3_loader.h",   
 	}
 
 
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
+
 
 	filter "configurations:Release"
 		runtime "Release"
